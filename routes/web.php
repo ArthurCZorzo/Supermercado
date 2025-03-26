@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdutosController;
 use App\Http\Controllers\TipoProdutosController;
+use App\Http\Controllers\FornecedorController;
 
 /*
 |--------------------------------------------------------------------------
