@@ -29,3 +29,5 @@ Route::get('/olaMundo', function () {
 Route::get('/produtos', [ProdutosController::class, 'show']);
 
 Route::get("/tipo_produto", [TipoProdutosController::class, 'show']);
+
+Route::get('/fornecedores', [FornecedorController::class, 'show']);
