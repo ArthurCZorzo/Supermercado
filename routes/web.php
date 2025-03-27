@@ -31,10 +31,15 @@ Route::get('/produtos', [ProdutosController::class, 'show'])->name('produtos.sho
 
 Route::get("/tipo_produto", [TipoProdutosController::class, 'show']);
 
-Route::get('/fornecedores', [FornecedorController::class, 'show']);
+Route::get('/fornecedores', [FornecedorController::class, 'show'])->name('fornecedor.show');
 
 Route::get('/produtos/cadastrar', [ProdutosController::class, 'cadastrar'])->name('produtos.cadastrar');
 Route::post('/produtos/cadastrar', [ProdutosController::class, 'inserir'])->name('produtos.inserir');
 
 Route::get('/produtos/alterar/{id}', [ProdutosController::class, 'alterar'])->name('produtos.alterar');
 Route::post('/produtos/alterar/{id}', [ProdutosController::class, 'editar'])->name('produtos.editar');
+
+Route::get('produtos/excluir/{id}', [ProdutosController::class, 'excluir'])->name('produtos.excluir');
+
+Route::get('/fornecedores/cadastrar', [FornecedorController::class, 'cadastrar'])->name('fornecedor.cadastrar');
+Route::post('/fornecedores/cadastrar', [FornecedorController::class, 'inserir'])->name('fornecedor.inserir');

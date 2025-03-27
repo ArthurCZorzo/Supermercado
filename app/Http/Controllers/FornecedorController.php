@@ -14,4 +14,20 @@ class FornecedorController extends Controller
 
         return view('fornecedores', ['fornecedores' => $fornecedores]);
     }
+
+    function cadastrar(){
+        return view('fornecedores_new');
+    }
+
+    function inserir(Request $request){
+        $fornecedor = new Fornecedor();
+
+        $fornecedor->nome = $request->nome;
+        $fornecedor->razaoSocial = $request->razaoSocial;
+        $fornecedor->cnpj = $request->cnpj;
+
+        $fornecedor->save();
+
+        return redirect()->route('fornecedor.show');
+    }
 }

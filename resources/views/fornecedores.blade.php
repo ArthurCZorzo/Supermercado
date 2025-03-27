@@ -22,4 +22,5 @@
             @endforeach
         </tbody>
     </table>
+    <a href="{{ route('fornecedor.cadastrar') }}" class="btn btn-primary">Cadastrar Fornecedor</a>
 @endsection

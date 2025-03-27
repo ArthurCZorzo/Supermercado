@@ -10,7 +10,7 @@
         </div>
         <div class="mb-3">
             <label for="preco" class="form-label">Valor do Produto</label>
-            <input type="number" setp="0.01" class="form-control" id="preco" name="preco" placeholder="R$ 0.00">
+            <input type="number" step="0.01" class="form-control" id="preco" name="preco" placeholder="R$ 0.00">
         </div>
         <input type="submit" value="Cadastrar" class="btn btn-success">
     </form>
