@@ -27,8 +27,14 @@ Route::get('/olaMundo', function () {
     return view('olaMundo');
 });
 
-Route::get('/produtos', [ProdutosController::class, 'show']);
+Route::get('/produtos', [ProdutosController::class, 'show'])->name('produtos.show');
 
 Route::get("/tipo_produto", [TipoProdutosController::class, 'show']);
 
 Route::get('/fornecedores', [FornecedorController::class, 'show']);
+
+Route::get('/produtos/cadastrar', [ProdutosController::class, 'cadastrar'])->name('produtos.cadastrar');
+Route::post('/produtos/cadastrar', [ProdutosController::class, 'inserir'])->name('produtos.inserir');
+
+Route::get('/produtos/alterar/{id}', [ProdutosController::class, 'alterar'])->name('produtos.alterar');
+Route::post('/produtos/alterar/{id}', [ProdutosController::class, 'editar'])->name('produtos.editar');

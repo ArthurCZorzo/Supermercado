@@ -15,4 +15,36 @@ class ProdutosController extends Controller
         //passando para nossa view a variável de produtos.
         return view('produtos_show', ['produtos' => $produtos]);
     }
+
+    function cadastrar(){
+        return view('produtos_new');
+    }
+
+    function alterar($id){
+        $produto = Produto::findOrFail($id);
+
+        return view('produtos_edit', ['produto' => $produto]);
+    }
+
+    function inserir(Request $request){
+        $produto = new Produto();
+
+        $produto->nome = $request->nome;
+        $produto->preco = $request->preco;
+
+        $produto->save();
+
+        return redirect()->route('produtos.show');
+    }
+
+    function editar(Request $request, $id){
+        $produto = Produto::findOrFail($id);
+
+        $produto->nome = $request->nome;
+        $produto->preco = $request->preco;
+
+        $produto->save();
+
+        return redirect()->route('produtos.show');
+    }
 }
