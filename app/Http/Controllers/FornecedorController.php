@@ -19,6 +19,12 @@ class FornecedorController extends Controller
         return view('fornecedores_new');
     }
 
+    function alterar($id){
+        $fornecedor = Fornecedor::findOrFail($id);
+
+        return view('fornecedores_edit', ['fornecedor' => $fornecedor]);
+    }
+
     function inserir(Request $request){
         $fornecedor = new Fornecedor();
 
@@ -27,6 +33,26 @@ class FornecedorController extends Controller
         $fornecedor->cnpj = $request->cnpj;
 
         $fornecedor->save();
+
+        return redirect()->route('fornecedor.show');
+    }
+
+    function editar(Request $request, $id){
+        $fornecedor = Fornecedor::findOrFail($id);
+
+        $fornecedor->nome = $request->nome;
+        $fornecedor->razaoSocial = $request->razaoSocial;
+        $fornecedor->cnpj = $request->cnpj;
+
+        $fornecedor->save();
+        
+        return redirect()->route('fornecedor.show');
+    }
+
+    function excluir($id){
+        $fornecedor = Fornecedor::findOrFail($id);
+
+        $fornecedor->delete();
 
         return redirect()->route('fornecedor.show');
     }

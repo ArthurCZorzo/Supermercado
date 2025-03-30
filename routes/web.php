@@ -27,11 +27,10 @@ Route::get('/olaMundo', function () {
     return view('olaMundo');
 });
 
+/**
+ * Endpoint produto
+ */
 Route::get('/produtos', [ProdutosController::class, 'show'])->name('produtos.show');
-
-Route::get("/tipo_produto", [TipoProdutosController::class, 'show']);
-
-Route::get('/fornecedores', [FornecedorController::class, 'show'])->name('fornecedor.show');
 
 Route::get('/produtos/cadastrar', [ProdutosController::class, 'cadastrar'])->name('produtos.cadastrar');
 Route::post('/produtos/cadastrar', [ProdutosController::class, 'inserir'])->name('produtos.inserir');
@@ -41,5 +40,20 @@ Route::post('/produtos/alterar/{id}', [ProdutosController::class, 'editar'])->na
 
 Route::get('produtos/excluir/{id}', [ProdutosController::class, 'excluir'])->name('produtos.excluir');
 
+/**
+ * endpoint fornecedor
+ */
+Route::get('/fornecedores', [FornecedorController::class, 'show'])->name('fornecedor.show');
+
 Route::get('/fornecedores/cadastrar', [FornecedorController::class, 'cadastrar'])->name('fornecedor.cadastrar');
 Route::post('/fornecedores/cadastrar', [FornecedorController::class, 'inserir'])->name('fornecedor.inserir');
+
+Route::get('/fornecedores/alterar/{id}', [FornecedorController::class, 'alterar'])->name('fornecedor.alterar');
+Route::post('/fornecedores/alterar/{id}', [FornecedorController::class, 'editar'])->name('fornecedor.editar');
+
+Route::get('/fornecedores/excluir/{id}', [FornecedorController::class, 'excluir'])->name('fornecedor.excluir');
+
+/**
+ * endpoint tipo de produto
+ */
+Route::get("/tipo_produto", [TipoProdutosController::class, 'show']);
