@@ -47,6 +47,5 @@
         @endforeach
     </tbody>
     </table>
-    <a href="{{ route('produtos.cadastrar') }}" class="btn btn-primary col-sm-12">Cadastrar Produto</a>
-
+    <a href="{{ route('produtos.cadastrar') }}" class="btn btn-primary">Cadastrar Produto</a>
 @endsection
