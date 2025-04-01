@@ -12,6 +12,7 @@
         </tr>
     </thead>
     <tbody>
+        
         @foreach($produtos as $produto)
             <tr>
                 <td>{{ $produto->id }}</td>
@@ -24,7 +25,6 @@
                     </button>
                 </td>
             </tr>
-
             <div class="modal fade" id="modalExcluir" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
