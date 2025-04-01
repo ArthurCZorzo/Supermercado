@@ -17,7 +17,7 @@ use App\Http\Controllers\FornecedorController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/produtos/cadastrar');
 });
 
 /**
