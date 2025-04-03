@@ -10,8 +10,17 @@
         </div>
         <div class="mb-3">
             <label for="preco" class="form-label">Valor do Produto</label>
-            <input type="number" setp="0.01" class="form-control" id="preco" name="preco" placeholder="R$ 0.00" 
+            <input type="number" step="0.01" class="form-control" id="preco" name="preco" placeholder="R$ 0.00" 
             value="{{ $produto->preco }}">
+        </div>
+        <div class="mb-3">
+            <label for="preco" class="form-label">Fornecedor</label>
+            <select class="form-select" aria-label="Default select example" id="fornecedor" name="fornecedor_id" required>
+                <option selected value="">Selecione um fornecedor</option>
+                @foreach ($fornecedores as $f)
+                <option {{ ($f-> id == $produto->fornecedor_id ? "selected" : "") }} value="{{ $f->id }}">{{$f->nome}}</option>
+                @endforeach
+            </select>
         </div>
         <input type="submit" value="Atualizar" class="btn btn-success">
         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalExcluir">
