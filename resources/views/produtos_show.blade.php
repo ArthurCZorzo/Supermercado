@@ -1,6 +1,11 @@
 @extends('template')
 
 @section('conteudo')
+    @if (session()->has('mensagem'))
+        <div class="alert alert-{{ session('classe') }}">
+            {{ session('mensagem') }}
+        </div>
+    @endif
     <h1>Produtos</h1>
     <table class="table">
     <thead>
@@ -8,6 +13,7 @@
             <th>Id</th>
             <th>Nome</th>
             <th>Preço</th>
+            <th>Fornecedor</th>
             <th>Operações</th>
         </tr>
     </thead>
@@ -16,16 +22,18 @@
         @foreach($produtos as $produto)
             <tr>
                 <td>{{ $produto->id }}</td>
-                <td>{{ $produto->nome }}</td>
+                <td>{{ $produto->nome}}</td>
                 <td>{{ $produto->preco }}</td>
+                <td>{{ $produto->fornecedor->nome}}</td>
                 <td><a href="{{ route('produtos.alterar', ['id' => $produto->id]) }}" class="btn btn-info">Alterar</a></td>
                 <td>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalExcluir">
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalExcluir{{ $produto->id }}">
                         Excluir
                     </button>
                 </td>
             </tr>
-            <div class="modal fade" id="modalExcluir" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            
+            <div class="modal fade" id="modalExcluir{{ $produto->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                     <div class="modal-header">
