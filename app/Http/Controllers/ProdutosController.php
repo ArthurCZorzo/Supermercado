@@ -25,9 +25,13 @@ class ProdutosController extends Controller
     }
 
     function alterar($id){
+        $fornecedores = Fornecedor::all();
         $produto = Produto::findOrFail($id);
 
-        return view('produtos_edit', ['produto' => $produto]);
+        return view('produtos_edit', [
+            'produto' => $produto,
+            'fornecedores' => $fornecedores 
+        ]);
     }
 
     function inserir(Request $request){
@@ -39,6 +43,8 @@ class ProdutosController extends Controller
 
         $produto->save();
 
+        session()->flash('mensagem', "O produto {$produto->nome} foi adicionado com sucesso.");
+
         return redirect()->route('produtos.show');
     }
 
@@ -47,6 +53,7 @@ class ProdutosController extends Controller
 
         $produto->nome = $request->nome;
         $produto->preco = $request->preco;
+        $produto->fornecedor_id = $request->fornecedor_id;
 
         $produto->save();
 

@@ -1,6 +1,11 @@
 @extends('template')
 
 @section('conteudo')
+    @if (session()->has('mensagem'))
+        <div class="alert alert-success">
+            {{ session('mensagem') }}
+        </div>
+    @endif
     <h1>Produtos</h1>
     <table class="table">
     <thead>
@@ -8,6 +13,7 @@
             <th>Id</th>
             <th>Nome</th>
             <th>Preço</th>
+            <th>Fornecedor</th>
             <th>Operações</th>
         </tr>
     </thead>
@@ -18,6 +24,7 @@
                 <td>{{ $produto->id }}</td>
                 <td>{{ $produto->nome }}</td>
                 <td>{{ $produto->preco }}</td>
+                <td>{{ $produto->fornecedor->nome }}</td>
                 <td><a href="{{ route('produtos.alterar', ['id' => $produto->id]) }}" class="btn btn-info">Alterar</a></td>
                 <td>
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalExcluir">
