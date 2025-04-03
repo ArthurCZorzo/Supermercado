@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Produto;
+use App\Models\Fornecedor;
 
 class ProdutosController extends Controller
 {
@@ -17,13 +18,15 @@ class ProdutosController extends Controller
     }
 
     function cadastrar(){
-        return view('produtos_new');
+        $fornecedores = Fornecedor::all();
+        return view('produtos_new', ['fornecedores' => $fornecedores]);
     }
 
     function alterar($id){
+        $fornecedores = Fornecedor::all();
         $produto = Produto::findOrFail($id);
 
-        return view('produtos_edit', ['produto' => $produto]);
+        return view('produtos_edit', ['produto' => $produto, 'fornecedores'=> $fornecedores]);
     }
 
     function inserir(Request $request){
@@ -31,8 +34,11 @@ class ProdutosController extends Controller
 
         $produto->nome = $request->nome;
         $produto->preco = $request->preco;
+        $produto->fornecedor_id = $request->fornecedor_id;
 
         $produto->save();
+
+        session()->flash('mensagem',"O produto {$produto->nome} foi adicionado com sucesso");
 
         return redirect()->route('produtos.show');
     }
@@ -42,6 +48,7 @@ class ProdutosController extends Controller
 
         $produto->nome = $request->nome;
         $produto->preco = $request->preco;
+        $produto->fornecedor_id = $request->fornecedor_id;
 
         $produto->save();
 
