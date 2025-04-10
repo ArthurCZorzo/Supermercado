@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdutosController;
 use App\Http\Controllers\TipoProdutosController;
 use App\Http\Controllers\FornecedorController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +36,7 @@ Route::get('/produtos', [ProdutosController::class, 'show'])->name('produtos.sho
 Route::get('/produtos/cadastrar', [ProdutosController::class, 'cadastrar'])->name('produtos.cadastrar');
 Route::post('/produtos/cadastrar', [ProdutosController::class, 'inserir'])->name('produtos.inserir');
 
-Route::get('/produtos/alterar/{id}', [ProdutosController::class, 'alterar'])->name('produtos.alterar');
+Route::middleware('auth', '7days')->get('/produtos/alterar/{id}', [ProdutosController::class, 'alterar'])->name('produtos.alterar');
 Route::post('/produtos/alterar/{id}', [ProdutosController::class, 'editar'])->name('produtos.editar');
 
 Route::get('produtos/excluir/{id}', [ProdutosController::class, 'excluir'])->name('produtos.excluir');
@@ -57,3 +58,14 @@ Route::get('/fornecedores/excluir/{id}', [FornecedorController::class, 'excluir'
  * endpoint tipo de produto
  */
 Route::get("/tipo_produto", [TipoProdutosController::class, 'show']);
+
+Route::controller(AuthController::class)->group(function (){
+    Route::get('/login', 'login')->name('login');
+    Route::post('/login', 'tryLogin')->name('try.login');
+
+    Route::get('/register', 'register')->name('register');
+    Route::post('/register', 'saveRegister')->name('save.register');
+
+    Route::get('/logout', 'logout')->name('logout');
+});
+
