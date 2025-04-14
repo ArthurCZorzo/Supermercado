@@ -7,6 +7,28 @@
         </div>
     @endif
     <h1>Produtos</h1>
+    <div class="d-flex">
+        <form class="row g-3 ms-auto" method="GET" action="{{ route('produtos.show') }}">
+            <div class="col-auto">
+                <input type="text" class="form-control" id="termo" name="termo" placeholder="Digite sua busca" value="{{ request('termo') }}">
+            </div>
+            <div class="col-auto">
+                <input type="radio" class="btn-check" name="ordem" id="success-outlined" autocomplete="off" {{ (request('ordem') == 'asc'? 'checked': '') }} value="asc">
+                <label class="btn btn-outline-info" for="success-outlined">
+                    <i class="bi bi-sort-alpha-down"></i>
+                </label>
+            </div>
+            <div class="col-auto">
+                <input type="radio" class="btn-check" name="ordem" id="danger-outlined" autocomplete="off" {{ (request('ordem') == 'desc'? 'checked': '') }} value="desc">
+                <label class="btn btn-outline-info" for="danger-outlined">
+                    <i class="bi bi-sort-alpha-down-alt"></i>
+                </label>    
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3">Pesquisar</button>
+            </div>
+        </form>
+    </div>
     <table class="table">
     <thead>
         <tr>

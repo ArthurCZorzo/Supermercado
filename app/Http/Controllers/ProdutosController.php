@@ -9,12 +9,23 @@ use App\Models\Fornecedor;
 
 class ProdutosController extends Controller
 {
-    function show(){
+    function show(Request $req){
         //recuperando os produtos que estão no banco de dados
-        $produtos = Produto::all();
+        //$produtos = Produto::all();
+        $produtos = Produto::query(); // termo
+
+        if ($req->filled('termo')){
+            $produtos = $produtos->where(
+                'nome', 'like', "%{$req->input('termo')}%"
+            );
+        }
+
+        if ($req->filled('ordem')){
+            $produtos = $produtos->orderBy('nome', $req->input('ordem'));
+        }
 
         //passando para nossa view a variável de produtos.
-        return view('produtos_show', ['produtos' => $produtos]);
+        return view('produtos_show', ['produtos' => $produtos->get()]);
     }
 
     function cadastrar(){
