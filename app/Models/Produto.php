@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Fornecedor;
+use App\Models\Venda;
 
 class Produto extends Model
 {
@@ -13,5 +14,9 @@ class Produto extends Model
 
     function fornecedor(){
         return $this->belongsTo(Fornecedor::class);
+    }
+
+    function vendas() {
+        return $this->hasMany(Venda::class)->withPivot('desconto', 'subtotal', 'quantidade', 'preco_unitario');
     }
 }
