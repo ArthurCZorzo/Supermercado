@@ -76,5 +76,36 @@
         @endforeach
     </tbody>
     </table>
-    <a href="{{ route('produtos.cadastrar') }}" class="btn btn-primary">Cadastrar Produto</a>
+    <div class="row">
+        <div class="col-auto">
+        <a href="{{ route('produtos.cadastrar') }}" class="btn btn-primary">Cadastrar Produto</a>
+        </div>
+
+        <div class="col-auto ms-auto">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    @if ($produtos->currentPage() > 1)
+                    <li class="page-item">
+                    <a class="page-link" href="{{ $produtos->previousPageUrl() }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="{{ $produtos->previousPageUrl() }}">{{ $produtos->currentPage() - 1}}</a></li>
+                    @endif
+                    <li class="page-item active"><a class="page-link" href="#">{{ $produtos->currentPage() }}</a></li>
+                    @if ($produtos->hasMorePages())
+                    <li class="page-item"><a class="page-link" href="{{ $produtos->nextPageUrl() }}">{{ $produtos->currentPage() + 1 }}</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    @endif
+                </ul>
+            </nav>
+        </div>
+        
+    </div>
+
+    
 @endsection

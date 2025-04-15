@@ -24,8 +24,11 @@ class ProdutosController extends Controller
             $produtos = $produtos->orderBy('nome', $req->input('ordem'));
         }
 
+        $produtos = $produtos->paginate(2); #->setPageName('p');
+        #dd($produtos);
+
         //passando para nossa view a variável de produtos.
-        return view('produtos_show', ['produtos' => $produtos->get()]);
+        return view('produtos_show', ['produtos' => $produtos]);
     }
 
     function cadastrar(){
