@@ -7,6 +7,24 @@
         </div>
     @endif
     <h1>Produtos</h1>
+    <div class="d-flex">
+        <form class="row g-3 ms-auto" method="GET" action="{{ route('produtos.show') }}">
+            <div class="col-auto">
+                <input type="text" class="form-control" id="busca" name="busca" placeholder="Busca" value="{{ request('busca') }}">
+            </div>
+            <div class="col-auto">
+                <input type="radio" class="btn-check" name="ordem" id="success-outlined" autocomplete="off" {{ request('ordem') == 'asc' ? 'checked' : '' }} checked value="asc">
+                <label class="btn btn-outline-info" for="success-outlined"><i class="bi bi-sort-alpha-down"></i></label>
+            </div>
+            <div class="col-auto">
+                <input type="radio" class="btn-check" name="ordem" id="danger-outlined" autocomplete="off" {{ request('ordem') == 'desc' ? 'checked' : '' }}  value="desc">
+                <label class="btn btn-outline-info" for="danger-outlined"><i class="bi bi-sort-alpha-down-alt"></i></la>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3">Buscar</button>
+            </div>
+        </form>
+    </div>
     <table class="table">
     <thead>
         <tr>
@@ -55,5 +73,31 @@
         @endforeach
     </tbody>
     </table>
-    <a href="{{ route('produtos.cadastrar') }}" class="btn btn-primary">Cadastrar Produto</a>
+    <div class="row">
+        <div class="col-auto">
+            <a href="{{ route('produtos.cadastrar') }}" class="btn btn-primary">Cadastrar Produto</a>
+        </div>
+        <div class="col-auto ms-auto">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    @if ($produtos->currentPage() > 1)
+                        <li class="page-item">
+                        <a class="page-link" href="{{ $produtos->previousPageUrl() }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                        </li>
+                    @endifz
+                    <li class="page-item active"><a class="page-link" href="#">{{ $produtos->currentPage() }}</a></li>
+                    @if ($produtos->hasMorePages())
+                        <li class="page-item"><a class="page-link" href="{{ $produtos->nextPageUrl() }}">{{ $produtos->currentPage() + 1 }}</a></li>
+                        <li class="page-item">
+                        <a class="page-link" href="{{ $produtos->nextPageUrl() }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                        </li>
+                    @endif
+                </ul>
+            </nav>
+        </div>
+    </div>
 @endsection

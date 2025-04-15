@@ -31,7 +31,7 @@ Route::get('/olaMundo', function () {
 /**
  * Endpoint produto
  */
-Route::middleware('7days')->get('/produtos', [ProdutosController::class, 'show'])->name('produtos.show');
+Route::middleware('auth')->get('/produtos', [ProdutosController::class, 'show'])->name('produtos.show');
 
 Route::middleware('auth')->get('/produtos/cadastrar', [ProdutosController::class, 'cadastrar'])->name('produtos.cadastrar');
 Route::middleware('auth')->post('/produtos/cadastrar', [ProdutosController::class, 'inserir'])->name('produtos.inserir');

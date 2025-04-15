@@ -9,9 +9,20 @@ use App\Models\Fornecedor;
 
 class ProdutosController extends Controller
 {
-    function show(){
+    function show(Request $request){
         //recuperando os produtos que estão no banco de dados
-        $produtos = Produto::all();
+        //$produtos = Produto::all();
+        $produtos = Produto::query();
+
+        if ($request->filled('busca')){
+            $produtos = $produtos->where('nome', 'like', "%{$request->input('busca')}%");
+        }
+
+        if ($request->filled('ordem')){
+            $produtos = $produtos->orderBy('nome', $request->input('ordem'));
+        }
+
+        $produtos = $produtos->paginate(10);
 
         //passando para nossa view a variável de produtos.
         return view('produtos_show', ['produtos' => $produtos]);
