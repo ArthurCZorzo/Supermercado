@@ -36,7 +36,7 @@ Route::get('/produtos', [ProdutosController::class, 'show'])->name('produtos.sho
 Route::get('/produtos/cadastrar', [ProdutosController::class, 'cadastrar'])->name('produtos.cadastrar');
 Route::post('/produtos/cadastrar', [ProdutosController::class, 'inserir'])->name('produtos.inserir');
 
-Route::middleware('auth', '7days')->get('/produtos/alterar/{id}', [ProdutosController::class, 'alterar'])->name('produtos.alterar');
+Route::get('/produtos/alterar/{id}', [ProdutosController::class, 'alterar'])->name('produtos.alterar');
 Route::post('/produtos/alterar/{id}', [ProdutosController::class, 'editar'])->name('produtos.editar');
 
 Route::get('produtos/excluir/{id}', [ProdutosController::class, 'excluir'])->name('produtos.excluir');

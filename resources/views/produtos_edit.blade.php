@@ -2,6 +2,13 @@
 
 @section('conteudo')
     <h1>Editar Produto</h1>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            @foreach ($errors->all() as $error)
+            ❌ {{ $error }} <br>
+            @endforeach
+        </div>
+    @endif
     <form action="{{ route('produtos.editar', ['id' => $produto->id]) }}" method="post">
         @csrf
         <div class="mb-3">
@@ -22,6 +29,19 @@
                 @endforeach
             </select>
         </div>
+        <div class="d-flex">
+            @if ($produto->foto != "")
+            <div>
+                <img src="{{ asset($produto->foto) }}"
+                class="rounded" width="100px">
+            </div>
+            @endif
+            <div class="mb-3">
+                <label for="foto" class="form-label">Foto do produto</label>
+                <input type="file" class="form-control" id="foto" name="foto">
+            </div>
+        </div>
+
         <input type="submit" value="Atualizar" class="btn btn-success">
         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalExcluir">
             Excluir

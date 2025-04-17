@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ProdutosRequest;
 
 use App\Models\Produto;
 use App\Models\Fornecedor;
@@ -48,26 +49,46 @@ class ProdutosController extends Controller
         ]);
     }
 
-    function inserir(Request $request){
+    function inserir(ProdutosRequest $request){
+        $request->validated();
         $produto = new Produto();
 
         $produto->nome = $request->nome;
         $produto->preco = $request->preco;
         $produto->fornecedor_id = $request->fornecedor_id;
+        $produto->foto = "";
 
         $produto->save();
+
+        if ($request->file('foto')){
+            $imagem = $request->file('foto');
+            $nome_imagem = "{$produto->id}.{$imagem->extension()}";   
+            $nome_imagem = $imagem->storeAs('produtos', $nome_imagem, "public");
+            
+            $produto->foto = "upload/$nome_imagem";
+            $produto->save();
+        }
 
         session()->flash('mensagem', "O produto {$produto->nome} foi adicionado com sucesso.");
 
         return redirect()->route('produtos.show');
     }
 
-    function editar(Request $request, $id){
+    function editar(ProdutosRequest $request, $id){
+        $request->validated();
         $produto = Produto::findOrFail($id);
 
         $produto->nome = $request->nome;
         $produto->preco = $request->preco;
         $produto->fornecedor_id = $request->fornecedor_id;
+
+        if ($request->file('foto')){
+            $imagem = $request->file('foto');
+            $nome_imagem = "{$produto->id}.{$imagem->extension()}";   
+            $nome_imagem = $imagem->storeAs('produtos', $nome_imagem, "public");
+            
+            $produto->foto = "upload/$nome_imagem";
+        }
 
         $produto->save();
 
