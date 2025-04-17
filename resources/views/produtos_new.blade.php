@@ -2,7 +2,14 @@
 
 @section('conteudo')
     <h1>Cadastro de Produtos</h1>
-    <form action="{{ route('produtos.inserir') }}" method="post">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            @foreach($errors->all() as $erro)
+                ❌ {{ $erro }} <br>
+            @endforeach
+        </div>
+    @endif
+    <form action="{{ route('produtos.inserir') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label for="nome" class="form-label">Nome do Produto</label>
@@ -14,11 +21,15 @@
         </div>
         <div class="mb-3">
             <select name="fornecedor_id" class="form-select" aria-label="" required>
-                <option selected value="">Seleciona um fornecedor</option>
+                <option selected value="">Selecione um fornecedor</option>
                 @foreach($fornecedores as $fornecedor)
                     <option value="{{ $fornecedor->id }}">{{ $fornecedor->nome }}</option>
                 @endforeach
             </select>
+        </div>
+        <div class="mb-3">
+            <label for="foto" class="form-label">Foto do Produto</label>
+            <input type="file" class="form-control" id="preco" name="foto">
         </div>
         <input type="submit" value="Cadastrar" class="btn btn-success">
     </form>

@@ -86,7 +86,7 @@
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                         </li>
-                    @endifz
+                    @endif
                     <li class="page-item active"><a class="page-link" href="#">{{ $produtos->currentPage() }}</a></li>
                     @if ($produtos->hasMorePages())
                         <li class="page-item"><a class="page-link" href="{{ $produtos->nextPageUrl() }}">{{ $produtos->currentPage() + 1 }}</a></li>

@@ -2,7 +2,7 @@
 
 @section('conteudo')
     <h1>Editar Produto</h1>
-    <form action="{{ route('produtos.editar', ['id' => $produto->id]) }}" method="post">
+    <form action="{{ route('produtos.editar', ['id' => $produto->id]) }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label for="nome" class="form-label">Nome do Produto</label>
@@ -20,6 +20,17 @@
                     <option {{ ($fornecedor->id == $produto->fornecedor_id ? "selected" : "") }} value="{{ $fornecedor->id }}">{{ $fornecedor->nome }}</option>
                 @endforeach
             </select>
+        </div>
+        <div class="d-flex">
+            @if ($produto->foto != "")
+            <div>
+                <img src="{{ asset($produto->foto) }}" class="rounded" width="300">
+            </div>
+            @endif
+            <div class="mb-3">
+                <label for="foto" class="form-label">Foto do Produto</label>
+                <input type="file" class="form-control" id="preco" name="foto">
+            </div>
         </div>
         <input type="submit" value="Atualizar" class="btn btn-success">
         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalExcluir">

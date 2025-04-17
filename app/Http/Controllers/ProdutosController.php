@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use  App\Http\Requests\ProdutosRequest;
 
 use App\Models\Produto;
 use App\Models\Fornecedor;
@@ -41,14 +42,24 @@ class ProdutosController extends Controller
         return view('produtos_edit', ['produto' => $produto], ['fornecedores' => $fornecedores]);
     }
 
-    function inserir(Request $request){
+    function inserir(ProdutosRequest $request){
+        $request->validated();
         $produto = new Produto();
 
         $produto->nome = $request->nome;
         $produto->preco = $request->preco;
         $produto->fornecedor_id = $request->fornecedor_id;
+        $produto->foto = '';
 
         $produto->save();
+
+        if ($request->file('foto')){
+            $imagem = $request->file('foto');
+            $nomeImagem = "{$produto->id}.{$imagem->extension()}";
+            $nomeImagem = $imagem->storeAs('produtos', $nomeImagem, "public");
+            $produto->foto = "upload/$nomeImagem";
+            $produto->save();
+        }
 
         session()->flash('mensagem', "O produto {$produto->nome} foi adicionado com sucesso");
         session()->flash('classe', 'success');
@@ -56,14 +67,24 @@ class ProdutosController extends Controller
         return redirect()->route('produtos.show');
     }
 
-    function editar(Request $request, $id){
+    function editar(ProdutosRequest $request, $id){
+        $request->validated();
         $produto = Produto::findOrFail($id);
 
         $produto->nome = $request->nome;
         $produto->preco = $request->preco;
         $produto->fornecedor_id = $request->fornecedor_id;
+        $produto->foto = '';
 
         $produto->save();
+
+        if ($request->file('foto')) {
+            $imagem = $request->file('foto');
+            $nomeImagem = "{$produto->id}.{$imagem->extension()}";
+            $nomeImagem = $imagem->storeAs('produtos', $nomeImagem, 'public');
+            $produto->foto = "upload/$nomeImagem";
+            $produto->save();
+        }
 
         session()->flash('mensagem', "O produto {$produto->nome} foi alterado com sucesso");
         session()->flash('classe', 'success');
