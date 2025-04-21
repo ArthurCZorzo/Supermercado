@@ -14,7 +14,11 @@ return new class extends Migration
         Schema::create('produtos', function (Blueprint $table) {
             $table->id(); #Bigint PK
             $table->string('nome', 255); #varchar
+            $table->text('descricao');
+            $table->integer('quantidade');
             $table->double('preco'); #double
+            $table->unsignedBigInteger('categoria_id');
+            $table->foreign('categoria_id')->references('id')->on('categoria_produtos');
             $table->timestamps(); #Data de criação e Data de última alteração.
         });
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoriaProdutoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdutosController;
 use App\Http\Controllers\TipoProdutosController;
@@ -57,3 +58,5 @@ Route::get('/fornecedores/excluir/{id}', [FornecedorController::class, 'excluir'
  * endpoint tipo de produto
  */
 Route::get("/tipo_produto", [TipoProdutosController::class, 'show']);
+
+Route::get("/categoria_produto", [CategoriaProdutoController::class, 'show']);
