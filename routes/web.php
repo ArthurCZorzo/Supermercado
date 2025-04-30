@@ -46,6 +46,9 @@ Route::get('produtos/excluir/{id}', [ProdutosController::class, 'excluir'])->nam
  */
 Route::get('/fornecedores', [FornecedorController::class, 'show'])->name('fornecedor.show');
 
+Route::get('/fornecedores/inicio', [FornecedorController::class, 'inicio'])->name('fornecedor.inicio');
+Route::post('/fornecedores/inicio', [FornecedorController::class, 'preenche'])->name('fornecedor.preenche');
+
 Route::get('/fornecedores/cadastrar', [FornecedorController::class, 'cadastrar'])->name('fornecedor.cadastrar');
 Route::post('/fornecedores/cadastrar', [FornecedorController::class, 'inserir'])->name('fornecedor.inserir');
 
