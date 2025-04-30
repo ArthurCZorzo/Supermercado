@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Fornecedor;
+use Illuminate\Support\Facades\Http;
 
 class FornecedorController extends Controller
 {
@@ -13,6 +14,20 @@ class FornecedorController extends Controller
         $fornecedores = Fornecedor::all();
 
         return view('fornecedores', ['fornecedores' => $fornecedores]);
+    }
+
+    function inicio() {
+        return view('fornecedores_new0');
+    }
+
+    function preenche(Request $request) {
+        $cep = $request->input('cep');
+
+        $response = Http::get("https://viacep.com.br/ws/{$cep}/json");
+
+        session()->flash('endereco', $response->json());
+
+        return redirect(route('fornecedor.cadastrar'));
     }
 
     function cadastrar(){

@@ -49,6 +49,9 @@ Route::middleware('auth')->get('/fornecedores', [FornecedorController::class, 's
 Route::middleware('auth')->get('/fornecedores/cadastrar', [FornecedorController::class, 'cadastrar'])->name('fornecedor.cadastrar');
 Route::middleware('auth')->post('/fornecedores/cadastrar', [FornecedorController::class, 'inserir'])->name('fornecedor.inserir');
 
+Route::middleware('auth')->get('/fornecedores/inicio', [FornecedorController::class, 'inicio'])->name('fornecedor.inicio');
+Route::middleware('auth')->post('/fornecedores/inicio', [FornecedorController::class, 'preenche'])->name('fornecedor.preenche');
+
 Route::middleware('auth')->get('/fornecedores/alterar/{id}', [FornecedorController::class, 'alterar'])->name('fornecedor.alterar');
 Route::middleware('auth')->post('/fornecedores/alterar/{id}', [FornecedorController::class, 'editar'])->name('fornecedor.editar');
 
