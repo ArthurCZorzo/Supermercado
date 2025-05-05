@@ -24,7 +24,16 @@ class ProdutosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $produto = new Produto();
+
+        $produto->nome = $request->nome;
+        $produto->preco = $request->preco;
+        $produto->fornecedor_id = $request->fornecedor_id;
+        $produto->foto = $request->foto;
+
+        $produto->save();
+
+        return $produto;
     }
 
     /**
@@ -32,7 +41,7 @@ class ProdutosController extends Controller
      */
     public function show(string $id)
     {
-        $produto = Produto::findOrFail($id);
+        $produto = Produto::with('fornecedor')->findOrFail($id);
 
         return $produto;
     }
@@ -44,7 +53,14 @@ class ProdutosController extends Controller
     {
         $produto = Produto::findOrFail($id);
 
-        
+        $produto->nome = $request->nome;
+        $produto->preco = $request->preco;
+        $produto->fornecedor_id = $request->fornecedor_id;
+        $produto->foto = $request->foto;
+
+        $produto->save();
+
+        return $produto;
     }
 
     /**
@@ -52,6 +68,11 @@ class ProdutosController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $produto = Produto::findOrFail($id);
+
+        $produto->delete();
+
+        return response()->json(["mensagem" => "Recurso excluído"], 200);
+        //return response()->noContent();
     }
 }
